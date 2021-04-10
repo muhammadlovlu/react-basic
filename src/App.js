@@ -3,41 +3,68 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  // Api randomusers api start
+  // Api  users Componen & randomusers api start
+  function Users() {
+    const [users, setUser] = useState([]);
+    useEffect(() => {
+      fetch('https://randomuser.me/api/?results=102')
+        .then(res => res.json())
+        .then(data => setUser(data.results))
+    }, [])
+    return (
+      <div>
+        {
+          users.map(user => <SingleUser user={user} key={users.uuid}>h</SingleUser>)
+        }
+      </div>
+    )
+  }
 
 
+  function SingleUser(props) {
+    const userStyle = {
+      margin: '10px',
+      border: '1px solid black',
+      borderRadius: '5px',
+      backgroundColor: 'tomato',
+      width: '270px',
+      height: '450px',
+      color: 'white',
+      float: 'left'
+    }
+    const otherStyle = {
+      fontWeight: 'bold',
+      fontSize: '16px',
+      textAlign: 'center',
+      letterSpacing: '0.8px'
+    }
+    const imgStyle = {
+      margin: '20px',
+      borderRadius: '5px',
+      boxShadow: '20px 10px 30px  black'
+
+    }
+    return (
+      <div style={userStyle}>
+
+        <img style={imgStyle} width="180px" src={props.user.picture.large} alt="" />
+        <h1 style={{ fontSize: '18px' }}>Name : <span>{props.user.name.first}</span> <span>{props.user.name.last}</span></h1>
+        <h3 style={{ fontSize: '14px' }}>Email : {props.user.email}</h3>
+        <p style={otherStyle}>City : {props.user.location.city}</p>
+        <p style={otherStyle}></p>
+        <p style={otherStyle}>Country: {props.user.location.country}</p>
+        <p style={otherStyle}>Age : {props.user.registered.age}</p>
+        <p style={otherStyle}>Contact : {props.user.phone}</p>
+        <p style={otherStyle}></p>
 
 
-  // users Component start 
-  // function Users(){
-  //   const [users, setUsers] = useState([]);
-  //   useEffect(()=>{
-  //    fetch('https://jsonplaceholder.typicode.com/users')
-  //   .then(res => res.json())
-  //   .then(data=> setUsers(data))
-  //   }, [])
-  //   return (
-  //     <div>
-  //       <h3>Dynamic User :{users.length}</h3>
-  //       <ul>
-  //         {
-  //           users.map(user => <h5>{user.name}</h5>)
-  //         }
-  // {
-  //   users.map(user=> <h3>Street : {user.address.street}</h3>)
-  // }
-  //         {
-  //           console.log(users)
-  //         }
-  //       </ul>
-  //     </div>
-  //   )
-  // }
+        <p>{console.log(props)}</p>
+      </div>
+    )
+  }
 
-  // users Component end 
-  // USers Component end
 
-  // Api randomusers api end
+  // USers Component , randomusers api end
   const products = [
     {
       name: 'Mac Air',
@@ -88,74 +115,6 @@ function App() {
   );
 }
 
-
-
-
-// Api Random Users api start
-function Users() {
-
-  const [users, setUser] = useState([]);
-
-  useEffect(() => {
-    fetch('https://randomuser.me/api/?results=102')
-      .then(res => res.json())
-      .then(data => setUser(data.results))
-  }, [])
-
-
-  return (
-
-    <div>
-      {
-        users.map(user => <SingleUser user={user} key={users.uuid}>h</SingleUser>)
-      }
-    </div>
-
-  )
-}
-
-
-function SingleUser(props) {
-  const userStyle = {
-    margin: '10px',
-    border: '1px solid black',
-    borderRadius: '5px',
-    backgroundColor: 'tomato',
-    width: '270px',
-    height: '450px',
-    color: 'white',
-    float: 'left'
-  }
-  const otherStyle = {
-    fontWeight: 'bold',
-    fontSize: '16px',
-    textAlign:'center',
-    letterSpacing:'0.8px'
-  }
-  const imgStyle={
-    margin:'20px',
-    borderRadius:'5px',
-    boxShadow:'20px 10px 30px  black'
-
-  }
-  return (
-    <div style={userStyle}>
-     
-      <img style={imgStyle} width="180px" src={props.user.picture.large} alt="" />
-      <h1 style={{ fontSize: '18px' }}>Name : <span>{props.user.name.first}</span> <span>{props.user.name.last}</span></h1>
-      <h3 style={{ fontSize: '14px' }}>Email : {props.user.email}</h3>
-      <p style={otherStyle}>City : {props.user.location.city}</p>
-      <p style={otherStyle}></p>
-      <p style={otherStyle}>Country: {props.user.location.country}</p>
-      <p style={otherStyle}>Age : {props.user.registered.age}</p>
-      <p style={otherStyle}>Contact : {props.user.phone}</p>
-      <p style={otherStyle}></p>
-    
-
-      <p>{console.log(props)}</p>
-    </div>
-  )
-}
 
 // Product component start
 function Product(props) {
